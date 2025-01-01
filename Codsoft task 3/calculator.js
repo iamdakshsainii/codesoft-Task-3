@@ -1,22 +1,22 @@
-let answer = '';
+let currentInput = '';
 let operator = '';
-let first = null;
+let firstOperand = null;
 
-function AddNumber(number) {
-    answer += number;
-    show();
+function appendNumber(number) {
+    currentInput += number;
+    updateDisplay();
 }
 
 function clearDisplay() {
     currentInput = '';
     operator = '';
-    first = null;
-    show();
+    firstOperand = null;
+    updateDisplay();
 }
 
 function setOperator(op) {
-    if (first === null) {
-        first = parseFloat(answer);
+    if (firstOperand === null) {
+        firstOperand = parseFloat(currentInput);
         operator = op;
         currentInput = '';
     } else {
@@ -26,38 +26,38 @@ function setOperator(op) {
 }
 
 function calculateResult() {
-    if (first === null || answer === '') return;
+    if (firstOperand === null || currentInput === '') return;
 
-    const second = parseFloat(answer);
+    const secondOperand = parseFloat(currentInput);
     let result;
 
     switch (operator) {
         case '+':
-            result = first + second;
+            result = firstOperand + secondOperand;
             break;
         case '-':
-            result = first - second;
+            result = firstOperand - secondOperand;
             break;
         case '*':
-            result = first * second;
+            result = firstOperand * secondOperand;
             break;
         case '/':
-            if (second === 0) {
+            if (secondOperand === 0) {
                 result = 'Error';
             } else {
-                result = first / second;
+                result = firstOperand / secondOperand;
             }
             break;
         default:
             return;
     }
 
-    answer = result.toString();
-    first = null;
+    currentInput = result.toString();
+    firstOperand = null;
     operator = '';
-    show();
+    updateDisplay();
 }
 
-function show() {
-    document.getElementById('display').value = answer;
+function updateDisplay() {
+    document.getElementById('display').value = currentInput;
 }
